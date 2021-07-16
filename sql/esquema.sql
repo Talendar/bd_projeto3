@@ -247,7 +247,7 @@ create table contratoservico(
     CONSTRAINT CHECK_CONTRATO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota é de 0 a 5 estrelas
 );
 
--- Trigger para o id funcionar automaticamente
+-- Trigger para o id da viagem funcionar automaticamente
 CREATE SEQUENCE viagem_seq START WITH 1;
 CREATE OR REPLACE TRIGGER viagem_trig 
 BEFORE INSERT ON viagem
@@ -259,7 +259,7 @@ BEGIN
 END;
 /
 
--- Trigger para o id funcionar automaticamente
+-- Trigger para o id do quarto funcionar automaticamente
 CREATE SEQUENCE quarto_seq START WITH 1;
 CREATE OR REPLACE TRIGGER quarto_trig 
 BEFORE INSERT ON quarto
