@@ -249,7 +249,7 @@ create table contratoservico(
 
 -- Trigger para o id funcionar automaticamente
 CREATE SEQUENCE viagem_seq START WITH 1;
-CREATE TRIGGER viagem_trig 
+CREATE OR REPLACE TRIGGER viagem_trig 
 BEFORE INSERT ON viagem
 FOR EACH ROW
 BEGIN
@@ -257,11 +257,11 @@ BEGIN
   INTO   :new.id
   FROM   dual;
 END;
-
+/
 
 -- Trigger para o id funcionar automaticamente
 CREATE SEQUENCE quarto_seq START WITH 1;
-CREATE TRIGGER quarto_trig 
+CREATE OR REPLACE TRIGGER quarto_trig 
 BEFORE INSERT ON quarto
 FOR EACH ROW
 BEGIN
