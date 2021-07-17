@@ -12,7 +12,14 @@ Para "compilar" o programa:
 $ make install
 ```
 
-Para ligar o servidor web:
+Para criar a base de dados (substitua o usuário e a senha):
+
+```shell
+$ bin/dbproj3 build --user G123456 --password G123456
+```
+
+
+Para ligar o servidor web (substitua o usuário e a senha):
 
 ```shell
 $ bin/dbproj3 run --user G123456 --password G123456
