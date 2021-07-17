@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Projeto 3 de BD</title>
+</head>
+<style>
+  #container {
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto 0 auto;
+    align-items: center;
+    width: 500px;
+    min-height: 300px;
+    padding: 2em;
+    border: #acacac solid 1px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #939393;
+  }
+
+  h2 {
+    margin: 0 0 50px 0;
+  }
+
+  select {
+    width: 350px;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 7px;
+  }
+
+  #select-label {
+    font-size: 1.3em;
+    margin-bottom: 0.6em;
+  }
+
+  button {
+    font-size: 1.2em;
+    width: 170px;
+    margin-top: 36px;
+    align-self: center;
+    border-radius: 5px;
+  }
+
+  #operation-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+    padding: 10px;
+    border-radius: 5px;
+    border: #acacac solid 1px;
+    margin-top: 27px;
+  }
+
+  .form-field {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+</style>
+<body>
+  <div id="container">
+    <h2>SAT - Sistema Avançado de Turismo</h2>
+    <label>
+      <p id="select-label">Selecione uma operação:</p>
+      <select onchange="handleOperationSelection(this)">
+        <optgroup label="Cadastros">
+          <option value="register_tourist" selected>Cadastrar turista</option>
+          <option value="register_service_provider">Cadastrar prestador de serviço</option>
+          <option value="register_country">Cadastrar país</option>
+        </optgroup>
+        <optgroup label="Consultas">
+          <option value="list_tourists">Listar turistas</option>
+          <option value="list_service_providers">Listar prestadores de serviço</option>
+          <option value="list_countries">Listar países</option>
+        </optgroup>
+      </select>
+    </label>
+    <form id="operation-form" method="POST"></form>
+  </div>
+
+  <script>
+    function handleOperationSelection(element) {
+      let form = document.getElementById("operation-form");
+      if(element.value === "register_tourist" || element.value === "register_service_provider") {
+        form.innerHTML = `
+          <label class="form-field">
+            E-mail:
+            <input type="email" name="email" required>
+          </label>
+          <label class="form-field">
+            Nome:
+            <input type="text" name="name" required>
+          </label>
+          <label class="form-field">
+            Senha:
+            <input type="password" name="password" required>
+          </label>
+          <label class="form-field">
+            País:
+            <input type="text" name="country" required>
+          </label>
+        `;
+      }
+      else if(element.value === "register_country") {
+        form.innerHTML = `
+          <label class="form-field">
+            Nome: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" name="name" required>
+          </label>
+          <label class="form-field">
+            Continente:
+            <input type="text" name="continent" required>
+          </label>
+          <label class="form-field">
+            Capital: &nbsp; &nbsp; &nbsp;
+            <input type="text" name="capital" required>
+          </label>
+          <label class="form-field">
+            Língua: &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" name="lang" required>
+          </label>
+        `;
+      }
+      else {
+        form.innerHTML = "";
+      }
+
+      form.action = element.value;
+      form.innerHTML += "<button type=\"submit\">Submeter</button>";
+    }
+
+    document.getElementById("operation-form").value = "register_tourist";
+    handleOperationSelection({ value: "register_tourist" });
+  </script>
+</body>
+</html>

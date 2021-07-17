@@ -1,5 +1,4 @@
-
---Tabela de Pais, n„o tem dependencia de outras tabelas
+--Tabela de Pais, n√£o tem dependencia de outras tabelas
 create table pais(
     nome varchar(60),
     continente varchar(10) not null,
@@ -9,7 +8,7 @@ create table pais(
     CONSTRAINT CHECK_PAIS_CONTINENTE CHECK (UPPER(CONTINENTE) IN ('AMERICA','EUROPA','ASIA','AFRICA','OCEANIA','ANTARTIDA')) --     <-- CHECK PARA VERIFICAR SE O CONTINENTE E UM CONTINENTE VALIDO
 );
 
--- Table de Prestador de Servico, sÛ usa FK de pais
+-- Table de Prestador de Servico, s√≥ usa FK de pais
 create table prestadorservico(
     email varchar(256),
     nome varchar(100) not null,
@@ -17,10 +16,10 @@ create table prestadorservico(
     pais varchar(60) not null,
     CONSTRAINT PK_PRESTADOR PRIMARY KEY (EMAIL), --    <--- PRIMARY KEY
     CONSTRAINT FK_PRESTADOR_PAIS FOREIGN KEY (PAIS) REFERENCES PAIS (NOME), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_PRESTADOR_EMAIL CHECK(EMAIL LIKE '%_@__%.__%')  --     <-- CHECA SE O EMAIL TEM UM FORMATO V¡LIDO
+    CONSTRAINT CHECK_PRESTADOR_EMAIL CHECK(EMAIL LIKE '%_@__%.__%')  --     <-- CHECA SE O EMAIL TEM UM FORMATO V√ÅLIDO
 );
 
---Table de Area de Atuacao, sÛ usa FK de PrestadorServico
+--Table de Area de Atuacao, s√≥ usa FK de PrestadorServico
 create table areaatuacao(
     prestador varchar(256),
     area varchar(256),
@@ -37,7 +36,7 @@ create table servico(
     cidade varchar(100) not null,
     estado varchar(100) not null,
     rua varchar(100),
-    numero varchar(10), --    <-- Foi deixado como varchar para atender n˙meros do tipo 320A ou algo assim
+    numero varchar(10), --    <-- Foi deixado como varchar para atender n√∫meros do tipo 320A ou algo assim
     complemento varchar(256),
     CONSTRAINT PK_SERVICO PRIMARY KEY (PRESTADOR,NOME), --    <--- PRIMARY KEY
     CONSTRAINT FK_SERVICO_PRESTADOR FOREIGN KEY (PRESTADOR) REFERENCES PRESTADORSERVICO (EMAIL), --    <--- FOREIGN KEY
@@ -56,17 +55,17 @@ create table locacaoequip(
     CONSTRAINT PK_LOCACAO PRIMARY KEY (PRESTADOR,NOMESERVICO), --    <--- PRIMARY KEY
     CONSTRAINT FK_LOCACAO_SERVICO FOREIGN KEY (PRESTADOR,NOMESERVICO) REFERENCES SERVICO (PRESTADOR,NOME), --    <--- FOREIGN KEY
     CONSTRAINT UN_LOCACAO UNIQUE (NOMEEQUIP), --    <--- UNIQUE
-    CONSTRAINT CHECK_LOCACAO_NEG CHECK(VALOREQUIP >= 0 AND QUANTDISP >= 0) --   <-- PreÁo e quantidade n„o pode ser negativo
+    CONSTRAINT CHECK_LOCACAO_NEG CHECK(VALOREQUIP >= 0 AND QUANTDISP >= 0) --   <-- Pre√ßo e quantidade n√£o pode ser negativo
 );
 
---Table de Tipo de ServiÁo, usa FK de Servico
+--Table de Tipo de Servi√ßo, usa FK de Servico
 create table tiposervico(
     prestador varchar(256),
     nomeservico varchar(100),
     tipo varchar(100),
     CONSTRAINT PK_TIPO PRIMARY KEY (PRESTADOR,NOMESERVICO,TIPO), --    <--- PRIMARY KEY
     CONSTRAINT FK_TIPO_SERVICO FOREIGN KEY (PRESTADOR,NOMESERVICO) REFERENCES SERVICO (PRESTADOR,NOME), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_TIPOSERV_TIPO CHECK(UPPER(TIPO) IN ('ATIVIDADE', 'LOCACAO')) --  <-- CHECA SE O TIPO … LOCA«√O OU ATIVIDADE
+    CONSTRAINT CHECK_TIPOSERV_TIPO CHECK(UPPER(TIPO) IN ('ATIVIDADE', 'LOCACAO')) --  <-- CHECA SE O TIPO √â LOCA√á√ÉO OU ATIVIDADE
 );
 
 --Table de Atividade, usa FK de Servico
@@ -76,10 +75,10 @@ create table atividade(
     valoratividade float(3) not null,
     CONSTRAINT PK_ATIVIDADE PRIMARY KEY (PRESTADOR,NOMESERVICO), --    <--- PRIMARY KEY
     CONSTRAINT FK_ATIVIDADE_SERVICO FOREIGN KEY (PRESTADOR,NOMESERVICO) REFERENCES SERVICO (PRESTADOR,NOME), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_ATIVIDADE_NEG CHECK(VALORATIVIDADE >= 0) --   <-- PreÁo n„o pode ser negativo
+    CONSTRAINT CHECK_ATIVIDADE_NEG CHECK(VALORATIVIDADE >= 0) --   <-- Pre√ßo n√£o pode ser negativo
 );
 
---Table de RestriÁıes, usa FK de Servico
+--Table de Restri√ß√µes, usa FK de Servico
 create table restricoes(
     prestador varchar(256),
     nomeservico varchar(100),
@@ -88,7 +87,7 @@ create table restricoes(
     CONSTRAINT FK_RESTRICAO_SERVICO FOREIGN KEY (PRESTADOR,NOMESERVICO) REFERENCES SERVICO (PRESTADOR,NOME) --    <--- FOREIGN KEY
 );
 
---Table de Turista, sÛ usa FK de pais
+--Table de Turista, s√≥ usa FK de pais
 create table turista(
     email varchar(256),
     nome varchar(100) not null,
@@ -96,10 +95,10 @@ create table turista(
     pais varchar(60) not null,
     CONSTRAINT PK_TURISTA PRIMARY KEY (EMAIL), --    <--- PRIMARY KEY
     CONSTRAINT FK_TURISTA_PAIS FOREIGN KEY (PAIS) REFERENCES PAIS (NOME), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_TURISTA_EMAIL CHECK(EMAIL LIKE '%_@__%.__%')  --     <-- CHECA SE O EMAIL TEM UM FORMATO V¡LIDO
+    CONSTRAINT CHECK_TURISTA_EMAIL CHECK(EMAIL LIKE '%_@__%.__%')  --     <-- CHECA SE O EMAIL TEM UM FORMATO V√ÅLIDO
 );
 
---Table de Grupo, sÛ usa FK de Turista
+--Table de Grupo, s√≥ usa FK de Turista
 create table grupo(
     administrador varchar(256),
     nome varchar(100),
@@ -118,7 +117,7 @@ create table membrogrupo(
     CONSTRAINT FK_MEMBRO_TURISTA FOREIGN KEY (MEMBRO) REFERENCES TURISTA (EMAIL) --    <--- FOREIGN KEY
 );
 
---Table de Viagem, n„o tem dependencias de outras tabelas
+--Table de Viagem, n√£o tem dependencias de outras tabelas
 create table viagem(
     id NUMBER,
     admingrupo varchar(256) not null,
@@ -127,10 +126,10 @@ create table viagem(
     duracao number not null,
     CONSTRAINT PK_VIAGEM PRIMARY KEY (id),  --    <--- PRIMARY KEY
     CONSTRAINT UN_VIAGEM UNIQUE (ADMINGRUPO,NOMEGRUPO,DATAIDA), --    <--- UNIQUE
-    CONSTRAINT CHECK_VIAGEM_NEG CHECK(DURACAO >= 0 AND ID >= 0) --   <-- DuraÁ„o e Id n„o pode ser negativo
+    CONSTRAINT CHECK_VIAGEM_NEG CHECK(DURACAO >= 0 AND ID >= 0) --   <-- Dura√ß√£o e Id n√£o pode ser negativo
 );
 
---Table de Hotel, sÛ usa FK de Pais
+--Table de Hotel, s√≥ usa FK de Pais
 create table hotel(
     pais varchar(60),
     registro varchar(50),
@@ -138,13 +137,13 @@ create table hotel(
     cidade varchar(100) not null,
     estado varchar(100) not null,
     rua varchar(100) not null,
-    numero varchar(10) not null, --    <-- Foi deixado como varchar para atender n˙meros do tipo 320A ou algo assim
+    numero varchar(10) not null, --    <-- Foi deixado como varchar para atender n√∫meros do tipo 320A ou algo assim
     complemento varchar(256),
     CONSTRAINT PK_HOTEL PRIMARY KEY (PAIS,REGISTRO), --    <--- PRIMARY KEY
     CONSTRAINT FK_HOTEL_PAIS FOREIGN KEY (PAIS) REFERENCES PAIS (NOME) --    <--- FOREIGN KEY
 );
 
---Table de quarto, sÛ usa FK de Hotel
+--Table de quarto, s√≥ usa FK de Hotel
 create table quarto(
     id number,
     paishotel varchar(60) not null,
@@ -155,7 +154,7 @@ create table quarto(
     CONSTRAINT PK_QUARTO PRIMARY KEY (ID), --    <--- PRIMARY KEY
     CONSTRAINT UN_QUARTO UNIQUE (PAISHOTEL,REGISTROHOTEL,NUMERO), --    <--- UNIQUE
     CONSTRAINT FK_QUARTO_HOTEL FOREIGN KEY (PAISHOTEL,REGISTROHOTEL) REFERENCES HOTEL (PAIS,REGISTRO), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_QUARTO_NEG CHECK(PRECO >= 0 and id >= 0) --   <-- PreÁo e Id n„o pode ser negativo
+    CONSTRAINT CHECK_QUARTO_NEG CHECK(PRECO >= 0 and id >= 0) --   <-- Pre√ßo e Id n√£o pode ser negativo
 );
 
 --Table de Hospedagem, usa FK de Quarto e de Viagem
@@ -170,8 +169,8 @@ create table hospedagem(
     CONSTRAINT PK_HOSPEDAGEM PRIMARY KEY (IDVIAGEM,IDQUARTO,DATARESERVA,DURACAO), --    <--- PRIMARY KEY
     CONSTRAINT FK_HOSPEDAGEM_QUARTO FOREIGN KEY (IDQUARTO) REFERENCES QUARTO (ID), --    <--- FOREIGN KEY
     CONSTRAINT FK_HOSPEDAGEM_VIAGEM FOREIGN KEY (IDVIAGEM) REFERENCES VIAGEM (ID), --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_HOSPEDAGEM_NEG CHECK(DURACAO >= 0 AND VALORTOTAL >= 0 AND IDVIAGEM >= 0 AND IDQUARTO >= 0), --   <-- DuraÁ„o, PreÁo e Id n„o pode ser negativo
-    CONSTRAINT CHECK_HOSPEDAGEM_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota È de 0 a 5 estrelas
+    CONSTRAINT CHECK_HOSPEDAGEM_NEG CHECK(DURACAO >= 0 AND VALORTOTAL >= 0 AND IDVIAGEM >= 0 AND IDQUARTO >= 0), --   <-- Dura√ß√£o, Pre√ßo e Id n√£o pode ser negativo
+    CONSTRAINT CHECK_HOSPEDAGEM_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota √© de 0 a 5 estrelas
 );
 
 --Table de Restaurante, usa FK de Pais
@@ -188,7 +187,7 @@ create table restaurante(
     CONSTRAINT FK_RESTAURANTE_PAIS FOREIGN KEY (PAIS) REFERENCES PAIS (NOME) --    <--- FOREIGN KEY
 );
 
---Table de AlimentaÁ„o, usa FK de Viagem e de Restaurante
+--Table de Alimenta√ß√£o, usa FK de Viagem e de Restaurante
 create table alimentacao(
     idviagem number,
     pais varchar(60),
@@ -199,8 +198,8 @@ create table alimentacao(
     CONSTRAINT PK_ALIMENTACAO PRIMARY KEY (IDVIAGEM,PAIS,RESTAURANTE,DATAVISITA), --    <--- PRIMARY KEY
     CONSTRAINT FK_ALIMENTACAO_RESTAURANTE FOREIGN KEY (PAIS,RESTAURANTE) REFERENCES RESTAURANTE (PAIS,REGISTRO), --    <--- FOREIGN KEY
     CONSTRAINT FK_ALIMENTACAO_VIAGEM FOREIGN KEY (IDVIAGEM) REFERENCES VIAGEM (ID),  --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_ALIMENTACAO_NEG CHECK(IDVIAGEM >= 0), --   <-- Id n„o pode ser negativo
-    CONSTRAINT CHECK_ALIMENTACAO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota È de 0 a 5 estrelas
+    CONSTRAINT CHECK_ALIMENTACAO_NEG CHECK(IDVIAGEM >= 0), --   <-- Id n√£o pode ser negativo
+    CONSTRAINT CHECK_ALIMENTACAO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota √© de 0 a 5 estrelas
 );
 
 --Table de Transporte, usa FK de Viagem e de Pais
@@ -218,8 +217,8 @@ create table transporte(
     CONSTRAINT FK_TRANSPORTE_PAISORIGEM FOREIGN KEY (PAISORIGEM) REFERENCES PAIS (NOME), --    <--- FOREIGN KEY
     CONSTRAINT FK_TRANSPORTE_PAISDESTINO FOREIGN KEY (PAISDESTINO) REFERENCES PAIS (NOME), --    <--- FOREIGN KEY
     CONSTRAINT FK_TRANSPORTE_VIAGEM FOREIGN KEY (IDVIAGEM) REFERENCES VIAGEM (ID),  --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_TRANSPORTE_PAISES CHECK(UPPER(PAISORIGEM)!= UPPER(PAISDESTINO)), --   <-- Checa se o Pais de Origem È diferente do de Destino
-    CONSTRAINT CHECK_TRANSPORTE_NEG CHECK(DURACAO >= 0 AND VALOR >= 0 AND IDVIAGEM >= 0) --   <-- DuraÁ„o, PreÁo e Id n„o pode ser negativo
+    CONSTRAINT CHECK_TRANSPORTE_PAISES CHECK(UPPER(PAISORIGEM)!= UPPER(PAISDESTINO)), --   <-- Checa se o Pais de Origem √© diferente do de Destino
+    CONSTRAINT CHECK_TRANSPORTE_NEG CHECK(DURACAO >= 0 AND VALOR >= 0 AND IDVIAGEM >= 0) --   <-- Dura√ß√£o, Pre√ßo e Id n√£o pode ser negativo
 );
 
 --Table de Contrato de Servico, usa FK de Grupo, Servico e Viagem
@@ -242,9 +241,9 @@ create table contratoservico(
     CONSTRAINT FK_CONTRATO_GRUPO FOREIGN KEY (ADMINGRUPO,NOMEGRUPO) REFERENCES GRUPO (ADMINISTRADOR,NOME), --    <--- FOREIGN KEY
     CONSTRAINT FK_CONTRATO_SERVICO FOREIGN KEY (PRESTADOR,NOMESERVICO) REFERENCES SERVICO (PRESTADOR,NOME), --    <--- FOREIGN KEY
     CONSTRAINT FK_CONTRATO_VIAGEM FOREIGN KEY (IDVIAGEM) REFERENCES VIAGEM (ID),  --    <--- FOREIGN KEY
-    CONSTRAINT CHECK_CONRATO_DATA CHECK(DATAINICIO <= DATAFIM),--   <-- Checa se a a data de inicio È anterior a data de fim
-    CONSTRAINT CHECK_CONTRATO_NEG CHECK(NUMPARTICIPANTES >= 0 AND NUMEQUIPAMENTOS >= 0 AND IDVIAGEM >= 0 AND VALORTOTAL >= 0), --   <-- Numero de Participantes, Numero de Equipamentos, PreÁo e Id n„o pode ser negativo
-    CONSTRAINT CHECK_CONTRATO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota È de 0 a 5 estrelas
+    CONSTRAINT CHECK_CONRATO_DATA CHECK(DATAINICIO <= DATAFIM),--   <-- Checa se a a data de inicio √© anterior a data de fim
+    CONSTRAINT CHECK_CONTRATO_NEG CHECK(NUMPARTICIPANTES >= 0 AND NUMEQUIPAMENTOS >= 0 AND IDVIAGEM >= 0 AND VALORTOTAL >= 0), --   <-- Numero de Participantes, Numero de Equipamentos, Pre√ßo e Id n√£o pode ser negativo
+    CONSTRAINT CHECK_CONTRATO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota √© de 0 a 5 estrelas
 );
 
 -- Trigger para o id da viagem funcionar automaticamente
@@ -257,7 +256,6 @@ BEGIN
   INTO   :new.id
   FROM   dual;
 END;
-/
 
 -- Trigger para o id do quarto funcionar automaticamente
 CREATE SEQUENCE quarto_seq START WITH 1;

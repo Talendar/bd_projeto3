@@ -6,4 +6,6 @@ make install:
 	echo '#!/usr/bin/env python3' | cat - ./bin/dbproj3.zip > ./bin/dbproj3
 	rm ./bin/dbproj3.zip
 	chmod a+x ./bin/dbproj3
+	mkdir -p ./bin/assets/
+	cp ./src/web/templates/* ./bin/assets/
 	export PATH=$PATH":$HOME/bin"
