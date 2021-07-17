@@ -257,7 +257,7 @@ BEGIN
   INTO   :new.id
   FROM   dual;
 END;
-
+/
 
 -- Trigger para o id do quarto funcionar automaticamente
 CREATE SEQUENCE quarto_seq START WITH 1;
