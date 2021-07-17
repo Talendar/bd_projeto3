@@ -46,4 +46,20 @@ SELECT G.NOME, G.ADMINISTRADOR FROM GRUPO G WHERE
            WHERE G.ADMINISTRADOR = C.ADMINGRUPO AND G.NOME = C.NOMEGRUPO)
     );
 
+--Consulta 6:
+--Ordena hoteis no pais de um servico com base na avaliacao
+SELECT H.NOME, AVG(H2.NOTA) AS AVALIACAO
+    FROM HOTEL H
+        JOIN QUARTO Q ON (H.REGISTRO = Q.REGISTROHOTEL)
+        JOIN HOSPEDAGEM H2 ON (Q.ID = H2.IDQUARTO)
+    WHERE H.PAIS = 'INGLATERRA'
+    GROUP BY H.NOME
+    ORDER BY AVALIACAO DESC;
    
+--Consulta 7:
+--Seleciona as locacoes de um prestador cujo equipamento esta indisponivel e ordena por nome de servico
+SELECT S.NOME AS NOMESERVICO, L.NOMEEQUIP AS NOMEEQUIPAMENTO
+    FROM SERVICO S
+        JOIN LOCACAOEQUIP L ON (S.NOME = L.NOMESERVICO AND S.PRESTADOR = L.PRESTADOR)
+    WHERE S.PRESTADOR = 'lucas@email.com' AND QUANTDISP = 0
+    ORDER BY NOMESERVICO;
