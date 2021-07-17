@@ -246,3 +246,26 @@ create table contratoservico(
     CONSTRAINT CHECK_CONTRATO_NEG CHECK(NUMPARTICIPANTES >= 0 AND NUMEQUIPAMENTOS >= 0 AND IDVIAGEM >= 0 AND VALORTOTAL >= 0), --   <-- Numero de Participantes, Numero de Equipamentos, Preço e Id não pode ser negativo
     CONSTRAINT CHECK_CONTRATO_NOTA CHECK(NOTA >= 0 AND NOTA <= 5) --   <-- Nota é de 0 a 5 estrelas
 );
+
+-- Trigger para o id da viagem funcionar automaticamente
+CREATE SEQUENCE viagem_seq START WITH 1;
+CREATE OR REPLACE TRIGGER viagem_trig 
+BEFORE INSERT ON viagem
+FOR EACH ROW
+BEGIN
+  SELECT viagem_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+
+
+-- Trigger para o id do quarto funcionar automaticamente
+CREATE SEQUENCE quarto_seq START WITH 1;
+CREATE OR REPLACE TRIGGER quarto_trig 
+BEFORE INSERT ON quarto
+FOR EACH ROW
+BEGIN
+  SELECT quarto_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;

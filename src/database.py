@@ -44,6 +44,7 @@ class Database:
         """
         with self._db.cursor() as cursor:
             result = cursor.execute(sql)
+            self._db.commit()
             if result is not None:
                 return result.fetchall()
 
@@ -53,6 +54,10 @@ class Database:
         The cursor must be closed once it's no longer needed!
         """
         return self._db.cursor(*args, **kwargs)
+
+    def commit(self, *args, **kwargs):
+        """ Commits a transaction. """
+        return self._db.commit(*args, **kwargs)
 
     def drop_all(self):
         self.run("""
@@ -117,7 +122,7 @@ class Database:
                 statement = ""
                 for line in lines:
                     for char in line:
-                        if char == ";":
+                        if char == ";" and statement[-4:] != "dual":
                             try:
                                 cursor.execute(statement)
                             except Exception as e:
